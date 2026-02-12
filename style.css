@@ -19,6 +19,5 @@ body {
 
 .projekty img:hover {
     transform: scale(1.1);
-    border-radius: 25px;
-
+    border-radius: 0px;
 }
