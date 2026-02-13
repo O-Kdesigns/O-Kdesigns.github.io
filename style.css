@@ -1,6 +1,6 @@
 
 body {
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(7, 5, 5);
 }
 
 .projekty {
@@ -13,11 +13,53 @@ body {
     width: 300px;
     height: auto;
     transition: all 0.3s ease; 
-    box-shadow: 0 0 20px 10px rgba(250, 3, 3, 0.3);
+    box-shadow: 0 0 20px 10px rgba(214, 190, 190, 0.404);
 
 }
 
 .projekty img:hover {
-    transform: scale(0.5);
-    border-radius: 69px;
+    transform: scale(1.5);
+    border-radius: 00px;
+}
+.stranka-sekce {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 100px 0;
+    background-color: #6e5454;
+}
+
+.expand-galerie {
+    /* Začíná na 25 % šířky obrazovky zleva (středový efekt) */
+    margin-left: 9; 
+    width: 50vw;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.expand-galerie:hover {
+    /* Rozšíří se směrem doprava, levá strana (margin) zůstane */
+    width: 70vw;
+}
+
+.foto {
+    width: 100%;
+    overflow: hidden;
+}
+
+.foto img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    filter: grayscale(40%);
+    transition: filter 0.5s ease, transform 0.8s ease;
+}
+
+.foto:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.03);
 }
