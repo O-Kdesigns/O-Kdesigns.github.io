@@ -1,66 +1,77 @@
-
-body {
-    background-color: rgb(7, 5, 5);
-}
-
-.projekty {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.projekty img {
-    width: 300px;
-    height: auto;
-    transition: all 0.3s ease; 
-    box-shadow: 0 0 20px 10px rgba(214, 190, 190, 0.404);
-
-}
-
-.projekty img:hover {
-    transform: scale(1.5);
-    border-radius: 00px;
-}
-.stranka-sekce {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    padding: 100px 0;
-    background-color: #6e5454;
-}
-
-.expand-galerie {
-    /* Začíná na 25 % šířky obrazovky zleva (středový efekt) */
-    margin-left: 9; 
-    width: 50vw;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.expand-galerie:hover {
-    /* Rozšíří se směrem doprava, levá strana (margin) zůstane */
-    width: 70vw;
-}
-
-.foto {
-    width: 100%;
-    overflow: hidden;
-}
-
-.foto img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    filter: grayscale(40%);
-    transition: filter 0.5s ease, transform 0.8s ease;
-}
-
-.foto:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.03);
-}
-5
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="layout-skica" id="hlavni-layout">
+        <div class="projekty">
+            <div class="projekt-trigger" data-id="p1" onclick="otevriPortfolio(event, 'p1')" onmouseenter="zamerLeva('p1')">
+                <img src="img/dron.jpg">
+            </div>
+            <div class="projekt-trigger" data-id="p2" onclick="otevriPortfolio(event, 'p2')" onmouseenter="zamerLeva('p2')">
+                <img src="img/dron.jpg">
+            </div>
+            <div class="projekt-trigger" data-id="p3" onclick="otevriPortfolio(event, 'p3')" onmouseenter="zamerLeva('p3')">
+                <img src="img/dron.jpg">
+            </div>
+            <div class="projekt-trigger" data-id="p4" onclick="otevriPortfolio(event, 'p4')" onmouseenter="zamerLeva('p4')">
+                <img src="img/dron.jpg">
+            </div>
+        </div>
+        <section class="stranka-sekce" id="pravy-panel" onmouseenter="nastavStranu('prava')">
+            <div id="obsah-portfolia"></div>
+        </section>
+    </main>
+    <script>
+    function nastavStranu(strana) {
+        document.getElementById('hlavni-layout').dataset.strana = strana;
+    }
+    function zamerLeva(projektId) {
+        const layout = document.getElementById('hlavni-layout');
+        if (layout.dataset.aktivni !== projektId) {
+            layout.dataset.strana = 'leva';
+        }
+    }
+    function otevriPortfolio(event, projektId) {
+        if (event) {
+            event.stopPropagation();
+        }
+        const layout = document.getElementById('hlavni-layout');
+        const panel = document.getElementById('obsah-portfolia');
+        nastavStranu('prava');
+        if (layout.dataset.aktivni === projektId) {
+            return;
+        }
+        let obsah = '';
+        if (projektId === 'p1') {
+            obsah = `
+                <div style="padding: 40px; color: white; font-family: sans-serif;">
+                    <h1>ahoj ja jsem oliver</h1>
+                </div>
+            `;
+        } else if (projektId === 'p2') {
+            obsah = `
+                <div class="expand-galerie">
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                </div>
+            `;
+        } else {
+            obsah = '';
+        }
+        panel.innerHTML = obsah;
+        layout.dataset.aktivni = projektId;
+    }
+    window.onload = function() {
+        otevriPortfolio(null, 'p1');
+        document.getElementById('hlavni-layout').dataset.strana = '';
+    };
+    </script>
+</body>
+</html>
