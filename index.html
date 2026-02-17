@@ -2,28 +2,76 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="projekty">
-        <img src="img/dron.jpg">
-    </div>
-    <section class="stranka-sekce">
-        <div class="expand-galerie">
-            <div class="foto">
+    <main class="layout-skica" id="hlavni-layout">
+        <div class="projekty">
+            <div class="projekt-trigger" data-id="p1" onclick="otevriPortfolio(event, 'p1')" onmouseenter="zamerLeva('p1')">
                 <img src="img/dron.jpg">
             </div>
-            <div class="foto">
+            <div class="projekt-trigger" data-id="p2" onclick="otevriPortfolio(event, 'p2')" onmouseenter="zamerLeva('p2')">
                 <img src="img/dron.jpg">
             </div>
-            <div class="foto">
+            <div class="projekt-trigger" data-id="p3" onclick="otevriPortfolio(event, 'p3')" onmouseenter="zamerLeva('p3')">
+                <img src="img/dron.jpg">
+            </div>
+            <div class="projekt-trigger" data-id="p4" onclick="otevriPortfolio(event, 'p4')" onmouseenter="zamerLeva('p4')">
                 <img src="img/dron.jpg">
             </div>
         </div>
-    </section>
-    
+        <section class="stranka-sekce" id="pravy-panel" onmouseenter="nastavStranu('prava')">
+            <div id="obsah-portfolia"></div>
+        </section>
+    </main>
+    <script>
+    function nastavStranu(strana) {
+        document.getElementById('hlavni-layout').dataset.strana = strana;
+    }
+    function zamerLeva(projektId) {
+        const layout = document.getElementById('hlavni-layout');
+        if (layout.dataset.aktivni !== projektId) {
+            layout.dataset.strana = 'leva';
+        }
+    }
+    function otevriPortfolio(event, projektId) {
+        if (event) {
+            event.stopPropagation();
+        }
+        const layout = document.getElementById('hlavni-layout');
+        const panel = document.getElementById('obsah-portfolia');
+        nastavStranu('prava');
+        if (layout.dataset.aktivni === projektId) {
+            return;
+        }
+        let obsah = '';
+        if (projektId === 'p1') {
+            obsah = `
+                <div style="padding: 40px; color: white; font-family: sans-serif;">
+                    <h1>ahoj ja jsem oliver</h1>
+                </div>
+            `;
+        } else if (projektId === 'p2') {
+            obsah = `
+                <div class="expand-galerie">
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                    <div class="foto-wrap"><img src="img/dron.jpg"></div>
+                </div>
+            `;
+        } else {
+            obsah = '';
+        }
+        panel.innerHTML = obsah;
+        layout.dataset.aktivni = projektId;
+    }
+    window.onload = function() {
+        otevriPortfolio(null, 'p1');
+        document.getElementById('hlavni-layout').dataset.strana = '';
+    };
+    </script>
 </body>
-</html> 
-5
+</html>
